@@ -15,6 +15,7 @@
                 "dynamodb:DescribeTable",
                 "dynamodb:ListTables",
                 "dynamodb:PutItem",
+                "dynamodb:GetItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
                 "dynamodb:TagResource"
