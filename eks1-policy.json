@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:*",
+                "ec2:*",
+                "iam:*",
+                "cloudformation:*",
+                "secretsmanager:*",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "route53:*",
+                "vpc:*",
+                "autoscaling:*",
+                "elasticloadbalancing:*",
+                "kubernetes:Get",
+                "kubernetes:List",
+                "kubernetes:Watch",
+                "kubernetes:Delete"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

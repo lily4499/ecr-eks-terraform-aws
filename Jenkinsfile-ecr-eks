@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+   
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose action to apply or destroy')
+    }
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID_1')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY_1')
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
+
+    stages {
+    
+        stage('terraform init') {
+            steps {
+                sh "terraform init" 
+            }
+        }
+  
+        stage('plan') {
+            steps {
+                sh "terraform plan" 
+            }
+        }
+
+        stage('Action') {
+            steps {
+                sh "terraform ${params.ACTION} --auto-approve" 
+            }
+        }
+    }
+}
+

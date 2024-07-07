@@ -1,0 +1,10 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Exclude any .tfvars files that are likely to contain sensitive data, such as
+# password, private keys, and other secrets. These should not be committed into version control.
+*.tfvars
