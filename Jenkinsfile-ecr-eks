@@ -9,9 +9,20 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID_1')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY_1')
         AWS_DEFAULT_REGION = "us-east-1"
+        AWS_PROFILE = 'ecr-eks-user1'
     }
 
     stages {
+
+        stage('Login to AWS') {
+            steps {
+                sh '''
+                aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile $AWS_PROFILE
+                aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile $AWS_PROFILE
+                aws configure set region $AWS_REGION --profile $AWS_PROFILE
+                '''
+            }
+        }
     
         stage('terraform init') {
             steps {
