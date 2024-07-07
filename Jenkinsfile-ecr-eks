@@ -15,53 +15,19 @@ pipeline {
     
         stage('terraform init') {
             steps {
-                script {
-                    retry(3) {
-                        sh "terraform init"
-                    }
-                }
+                sh "terraform init" 
             }
         }
   
         stage('plan') {
             steps {
-                script {
-                    retry(3) {
-                        sh "terraform plan"
-                    }
-                }
+                sh "terraform plan" 
             }
         }
 
         stage('Action') {
             steps {
-                script {
-                    retry(3) {
-                        sh "terraform ${params.ACTION} --auto-approve"
-                    }
-                }
-            }
-        }
-    }
-
-    post {
-        failure {
-            script {
-                echo 'Terraform encountered an error. Attempting to remove state lock...'
-                try {
-                    sh '''
-                    LOCK_ID=$(aws dynamodb scan --table-name terraform-state --filter-expression "LockID = :lockid" --expression-attribute-values '{":lockid":{"S":"terraform.tfstate"}}' --query "Items[0].LockID.S" --output text)
-                    if [ "$LOCK_ID" != "None" ]; then
-                        echo "Found lock ID: $LOCK_ID"
-                        aws dynamodb delete-item --table-name terraform-state --key '{"LockID": {"S": "'$LOCK_ID'"}}'
-                        echo "State lock removed."
-                    else
-                        echo "No state lock found."
-                    fi
-                    '''
-                } catch (Exception e) {
-                    echo 'Failed to remove state lock. Manual intervention may be required.'
-                }
+                sh "terraform ${params.ACTION} --auto-approve" 
             }
         }
     }
