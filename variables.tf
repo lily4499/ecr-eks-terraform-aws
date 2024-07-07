@@ -17,10 +17,11 @@ variable "eks_node_group_name" {
 }
 
 variable "eks_node_instance_type" {
-  description = "The instance type for the EKS nodes"
-  type        = string
-  default     = "t3.medium"
+  description = "List of instance types for the EKS node group"
+  type        = list(string)
+  default     = ["t3.medium"] # Example default value, adjust as needed
 }
+
 
 variable "eks_desired_capacity" {
   description = "The desired capacity of the EKS node group"
