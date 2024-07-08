@@ -19,7 +19,7 @@ variable "eks_node_group_name" {
 variable "eks_node_instance_type" {
   description = "List of instance types for the EKS node group"
   type        = list(string)
-  default     = ["t3.medium"] # Example default value, adjust as needed
+  default     = ["t3.small", "t3.medium", "t3.large"] # Example default value, adjust as needed
 }
 
 
